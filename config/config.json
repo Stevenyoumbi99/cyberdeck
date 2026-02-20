@@ -1,0 +1,48 @@
+{
+  "project": {
+    "name": "CyberDeck",
+    "version": "1.0.0"
+  },
+
+  "network": {
+    "lan_interface": "eth0",
+    "wifi_interface": "wlan1",
+    "wifi_monitor_interface": "wlan1mon",
+    "bluetooth_interface": "hci0",
+    "target_subnet": "192.168.1.0/24"
+  },
+
+  "scan": {
+    "lan_scan_timeout": 30,
+    "port_range": "1-1024",
+    "wifi_scan_duration": 15,
+    "bluetooth_scan_duration": 10,
+    "passive_capture_duration": 60
+  },
+
+  "anomaly": {
+    "method": "zscore",
+    "threshold": 2.5,
+    "baseline_file": "results/baseline.json",
+    "min_samples": 50
+  },
+
+  "output": {
+    "results_dir": "results/",
+    "logs_dir": "logs/",
+    "report_format": "html"
+  },
+
+  "logging": {
+    "level": "INFO",
+    "log_to_file": true,
+    "log_to_console": true,
+    "max_file_size_mb": 5,
+    "backup_count": 3
+  },
+
+  "dashboard": {
+    "host": "0.0.0.0",
+    "port": 5000
+  }
+}
