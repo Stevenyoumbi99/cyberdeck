@@ -6,7 +6,7 @@ MSc Cyber & Data — Projet Fil Rouge
 
 ## Overview
 
-CyberDeck is a portable, embedded, modular cyber operations console built on a Raspberry Pi 4 running Kali Linux. It autonomously analyzes local networks, detects security anomalies using lightweight AI, and generates audit reports — all from a self-contained, battery-powered unit.
+CyberDeck is a portable, embedded, modular cyber operations console built on a Raspberry Pi 4 running Kali Linux. It autonomously analyzes local networks, detects security anomalies using lightweight AI, and generates audit reports, all from a self-contained, battery-powered unit.
 
 ## Features
 
@@ -20,7 +20,7 @@ CyberDeck is a portable, embedded, modular cyber operations console built on a R
 
 ## Architecture
 
-The system uses a plugin-based architecture. Every module implements `run(config)` and returns a standardized JSON result. Modules are discovered dynamically — adding a new mode means adding one file to `modules/`.
+The system uses a plugin-based architecture. Every module implements `run(config)` and returns a standardized JSON result. Modules are discovered dynamically, adding a new mode means adding one file to `modules/`.
 
 See [docs/architecture.md](docs/architecture.md) for the full system design.
 
@@ -28,7 +28,7 @@ See [docs/architecture.md](docs/architecture.md) for the full system design.
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/cyberdeck.git
+git clone https://github.com/Bravecupidon/cyberdeck.git
 cd cyberdeck
 
 # Install dependencies
