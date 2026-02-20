@@ -64,4 +64,4 @@ See [docs/workflow.md](docs/workflow.md) for branching and commit conventions.
 
 ## Team
 
-MSc Cyber & Data — ESAIP
+MSc Cyber & Data (ESAIP)
