@@ -16,6 +16,7 @@ CyberDeck is a portable, embedded, modular cyber operations console built on a R
 - **Bluetooth Recon** — Device discovery and classification
 - **Pentest Toolkit** — Wrappers around industry tools (nmap, nikto, enum4linux)
 - **Anomaly Detection** — Z-score and Isolation Forest based threat detection
+- **OSINT Recon Engine** — Internal discovery and external intelligence gathering (DNS, WHOIS, Certificate Transparency, TheHarvester) with exposure scoring and Maltego export
 - **Dashboard & Reports** — Flask web UI with HTML audit report generation
 
 ## Architecture
