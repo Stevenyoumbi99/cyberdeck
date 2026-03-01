@@ -15,6 +15,8 @@ CyberDeck is a portable, embedded, modular cyber operations console built on a R
 - **WiFi Auditing** — Monitor mode, wireless reconnaissance
 - **Bluetooth Recon** — Device discovery and classification
 - **Pentest Toolkit** — Wrappers around industry tools (nmap, nikto, enum4linux)
+- **ARP Spoof Detection** — Passive MITM attack detection via ARP conflict monitoring
+- **TLS Auditing** — SSL/TLS certificate validity, expiry, and protocol version checks
 - **Anomaly Detection** — Z-score and Isolation Forest based threat detection
 - **Dashboard & Reports** — Flask web UI with HTML audit report generation
 

@@ -27,5 +27,5 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Claude Code local settings (machine-specific, not for version control)
-.claude/settings.local.json
+# Claude Code — entire folder is local only, not for version control
+.claude/
