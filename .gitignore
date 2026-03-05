@@ -26,3 +26,6 @@ logs/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Claude Code — entire folder is local only, not for version control
+.claude/
