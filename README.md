@@ -18,6 +18,7 @@ CyberDeck is a portable, embedded, modular cyber operations console built on a R
 - **ARP Spoof Detection** — Passive MITM attack detection via ARP conflict monitoring
 - **TLS Auditing** — SSL/TLS certificate validity, expiry, and protocol version checks
 - **Anomaly Detection** — Z-score and Isolation Forest based threat detection
+- **OSINT Recon Engine** — Internal discovery and external intelligence gathering (DNS, WHOIS, Certificate Transparency, TheHarvester) with exposure scoring and Maltego export
 - **Dashboard & Reports** — Flask web UI with HTML audit report generation
 
 ## Architecture

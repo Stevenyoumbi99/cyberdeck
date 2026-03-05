@@ -21,6 +21,7 @@
   },
 
   "anomaly": {
+    "dev_mode": false,
     "method": "zscore",
     "threshold": 2.5,
     "baseline_file": "results/baseline.json",
@@ -44,5 +45,22 @@
   "dashboard": {
     "host": "0.0.0.0",
     "port": 5000
-  }
+  },
+
+  "osint": {
+    "dev_mode": false,
+    "enable_external": true,
+    "allowed_domains": [
+    "tesla.com",
+    "mit.edu",
+    "owasp.org"
+],
+    "dns_enabled": true,
+    "whois_enabled": true,
+    "ct_enabled": true,
+    "harvester_enabled": true,
+    "harvester_timeout": 120,
+    "maltego_export": true
+}
+
 }
