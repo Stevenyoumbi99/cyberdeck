@@ -6,11 +6,20 @@ Main entry point for the CyberDeck system.
 Boot sequence (order matters — each step depends on the previous):
     1. load_config()        — parse and validate config/config.json
     2. init_logger(config)  — set up logging (needs config for level/paths)
-    3. show_menu()          — display module list, get user selection
+    3. detect display       — try to start Tkinter GUI; fall back to text menu
+       GUI mode:   CyberDeckGUI(config).run()   — graphical window
+       Text mode:  show_menu() loop             — terminal interaction (SSH/headless)
     4. import_module()      — dynamically load the chosen module by name
     5. module.run(config)   — execute the scan, get result dict
     6. save_result()        — persist result to results/ as JSON
     7. loop back to step 3
+
+Display detection:
+    We try to create a Tkinter root window. On the Raspberry Pi with a screen
+    (or in a desktop VM) this succeeds and we launch the full GUI.
+    Over SSH or without a $DISPLAY environment variable, Tkinter raises
+    TclError and we silently fall back to the original text menu — no change
+    in behaviour for headless use.
 
 Usage:
     python launcher.py
@@ -103,9 +112,31 @@ def run_module(module_name: str, config: dict) -> None:
             print(f"    - {err}")
 
 
+def _has_display() -> bool:
+    """
+    Detect whether a graphical display is available for Tkinter.
+
+    On the Raspberry Pi with a screen, or in a desktop VM, this returns True.
+    Over SSH (no $DISPLAY variable) or in a pure terminal, Tkinter raises
+    TclError and this returns False — the caller then falls back to the text menu.
+
+    Returns:
+        bool: True if Tkinter can open a window, False otherwise.
+    """
+    try:
+        import tkinter as tk
+        # Attempt to create a root window — this is the definitive test.
+        # If $DISPLAY is missing or X11 is unavailable, this raises TclError.
+        root = tk.Tk()
+        root.destroy()   # immediately close the probe window
+        return True
+    except Exception:
+        return False
+
+
 def main() -> None:
     """
-    Main entry point. Runs the full boot sequence then loops on the menu.
+    Main entry point. Runs the full boot sequence then chooses GUI or text menu.
 
     The outer try/except catches fatal startup errors (missing config,
     broken JSON) and prints a clean message before exiting. Once the system
@@ -131,9 +162,26 @@ def main() -> None:
     init_logger(config)
     logger.info("CyberDeck starting up (v%s)", config["project"].get("version", "?"))
 
-    # --- Step 3-6: Menu loop ---
+    # --- Step 3: Choose interface mode ---
+    # GUI mode when a display is available (Pi touchscreen or desktop VM).
+    # Text mode when running headless or over SSH — identical functionality.
+    if _has_display():
+        logger.info("Display detected — launching Tkinter GUI")
+        print("[i] Display detected — launching graphical interface...\n")
+        try:
+            from ui.launcher_gui import CyberDeckGUI
+            gui = CyberDeckGUI(config)
+            gui.run()       # blocks until window is closed
+            sys.exit(0)
+        except Exception as e:
+            # If the GUI fails for any reason, fall through to text menu
+            logger.warning("GUI failed to start (%s) — falling back to text menu", e)
+            print(f"[!] GUI unavailable ({e}) — using text menu.\n")
+
+    # --- Step 4-7: Text menu loop (fallback or SSH mode) ---
     # After startup, the system loops: show menu → run module → save result → repeat.
     # The loop exits cleanly when the user selects "Quit" (show_menu returns None).
+    logger.info("Starting text menu (headless / SSH mode)")
     while True:
         selected_module = show_menu()
 
